@@ -1,4 +1,5 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="description" content="Soulmeri: wedding and engagement photography in natural light."><title>Soulmeri</title>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="description" content="Soulmeri: wedding and engagement photography in natural light.">
+<title>Soulmeri</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Inter:wght@300..600&display=swap">
 <style>
@@ -45,15 +46,24 @@ header{display:flex;align-items:center;justify-content:space-between;gap:12px 28
 .logo b{font-size:24px}
 .logo b i{font-family:var(--script);font-style:italic;font-weight:400;text-transform:none;letter-spacing:0;font-size:1.05em;margin-left:.06em}
 .logo small{font-size:9.5px;font-weight:500;letter-spacing:.32em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+.logo b,.logo small{justify-self:start;white-space:nowrap}
 nav{display:flex;gap:8px 26px;flex-wrap:wrap;align-items:center}
 nav a{font-size:12px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;text-decoration:none}
 nav a:hover{color:var(--accent)}
 nav .btn{padding:10px 18px}
+/* Transparent header while it sits over the hero; turns solid on scroll */
+.top{transition:background .35s,border-color .35s,backdrop-filter .35s}
+.top.clear{background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;border-bottom-color:transparent}
+.top.clear .logo b,.top.clear nav a{color:#fff;text-shadow:0 1px 14px rgba(0,0,0,.25)}
+.top.clear .logo small{color:rgba(255,255,255,.88)}
+.top.clear nav .btn{border-color:#fff;color:#fff;text-shadow:none}
+.top.clear nav .btn:hover{background:#fff;color:#1F1E1B}
+.top.clear nav a:not(.btn):hover{color:rgba(255,255,255,.75)}
 
 /* Hero: one photo with the introduction on it */
-.hero{position:relative;width:100%;height:calc(100svh - 72px);max-height:1100px;min-height:540px;overflow:hidden;background:#2a2824;color:#fff}
-.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 10%}
-.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 35%,rgba(0,0,0,.62) 100%)}
+.hero{position:relative;width:100%;margin-top:calc(-1 * var(--toph,74px));height:100svh;max-height:1100px;min-height:540px;overflow:hidden;background:#2a2824;color:#fff}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 0%}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.28) 0,rgba(0,0,0,0) 18%,rgba(0,0,0,0) 35%,rgba(0,0,0,.62) 100%)}
 .hero .intro{position:absolute;inset:auto 0 0 0;z-index:1;padding-inline:max(16px,env(safe-area-inset-left,0px),calc((100% - 1280px)/2)) !important;display:grid;grid-template-columns:1.2fr 1fr;gap:20px 56px;align-items:end;
   padding:clamp(24px,4vw,56px)}
 .hero .label{color:rgba(255,255,255,.88)}
@@ -69,12 +79,20 @@ nav .btn{padding:10px 18px}
 .hero .btn.solid:hover{background:transparent;color:#fff}
 .hero .link{color:#fff}
 @media (max-width:820px){.hero .intro{grid-template-columns:1fr}.hero .ctas{justify-content:flex-start!important}.hero::after{background:linear-gradient(180deg,rgba(0,0,0,0) 20%,rgba(0,0,0,.7) 100%)}}
-@media (max-width:760px){.hero{height:calc(100svh - 64px);min-height:480px}}
+@media (max-width:760px){.hero{height:100svh;min-height:480px}}
 
 /* Divider */
 .divider{display:flex;align-items:center;gap:22px;max-width:1280px;margin:0 auto}
 .divider::before,.divider::after{content:"";flex:1;height:1px;background:var(--line)}
 .divider span{font-size:18px;color:var(--ink)}
+
+/* Minimal section rule: fading hairlines with a tiny diamond */
+.rule{display:flex;align-items:center;gap:16px;max-width:1280px;margin:0 auto}
+.rule::before,.rule::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--line) 70%)}
+.rule::after{background:linear-gradient(270deg,transparent,var(--line) 70%)}
+.rule i{width:5px;height:5px;border:1px solid var(--muted);transform:rotate(45deg);opacity:.6;flex:none}
+section:has(+ .gut > .rule){padding-bottom:clamp(48px,7vw,90px)}
+.gut:has(> .rule) + section{padding-top:clamp(48px,7vw,90px)!important}
 
 /* Statement */
 .statement{text-align:center}
@@ -98,12 +116,13 @@ nav .btn{padding:10px 18px}
 .story{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(28px,5vw,80px);align-items:center}
 .story.flip{grid-template-columns:1fr 1.1fr}
 .story.flip .pics{order:2}
-.pics{display:grid;grid-template-columns:1.4fr 1fr;gap:10px;align-items:end}
+.pics{display:grid;grid-template-columns:1.4fr 1fr;grid-template-rows:1fr 1fr;gap:10px;align-items:stretch}
 .pics button{all:unset;cursor:zoom-in;display:block}
 .pics .big{grid-row:span 2}
 .pics img{width:100%;height:auto}
 .pics .big img{aspect-ratio:2/3;object-fit:cover}
-.pics .sm img{aspect-ratio:4/5;object-fit:cover}
+.pics .sm{position:relative;min-height:0;overflow:hidden}
+.pics .sm img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .story .txt{display:grid;gap:18px;min-width:0}
 .story h3{font-size:var(--h)}
 .story p{margin:0;color:var(--muted);max-width:30rem}
@@ -205,7 +224,7 @@ footer .sig{font-size:20px;color:var(--ink)}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 </style><style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}[hidden]{display:none!important}</style></head><body>
 
-<div class="gut top"><div class="wrap">
+<div class="gut top clear"><div class="wrap">
   <header>
     <a class="logo" href="#top" id="top"><b>Soulmeri</b><small>Photography</small></a>
     <nav aria-label="Main">
@@ -216,11 +235,17 @@ footer .sig{font-size:20px;color:var(--ink)}
 </div></div>
 
 <div class="hero">
-  <img src="photos/wed-magnolia-couple.jpg" alt="Bride and groom among white magnolias">
+  <img src="photos/eng-cypress.jpg" alt="Couple embracing between tall cypress trees and red begonias" style="object-position:50% 58%">
   <div class="intro">
     <div><span class="label">Wedding &amp; engagement photographer</span><h1 class="brand">Soulmeri</h1></div>
   </div>
 </div>
+
+<script>(function(){var t=document.querySelector('.top'),r=document.documentElement;function h(){r.style.setProperty('--toph',t.offsetHeight+'px')}function u(){t.classList.toggle('clear',window.scrollY<40)}h();u();addEventListener('scroll',u,{passive:true});addEventListener('resize',h)})();
+(function(){var b=document.querySelector('.logo b'),s=document.querySelector('.logo small');if(!b||!s)return;
+function w(el){var r=document.createRange();r.selectNodeContents(el);return r.getBoundingClientRect().width-(parseFloat(getComputedStyle(el).letterSpacing)||0)}
+function fit(){s.style.letterSpacing='0px';s.style.marginRight='0px';var n=s.textContent.trim().length;if(n<2)return;var ls=(w(b)-w(s))/(n-1);s.style.letterSpacing=ls+'px';s.style.marginRight=(-ls)+'px'}
+fit();if(document.fonts)document.fonts.ready.then(fit);addEventListener('resize',fit)})();</script>
 
 <section class="statement gut"><div class="wrap">
   <h2 class="caps">Documenting <span class="s">your</span><br><span class="s">most</span> beautiful and<br>special <span class="s">stories</span></h2>
@@ -246,6 +271,7 @@ footer .sig{font-size:20px;color:var(--ink)}
 
 
 
+<div class="gut" aria-hidden="true"><div class="rule"><i></i></div></div>
 <section class="gut" style="padding-top:0"><div class="wrap strip-wrap">
   <div class="hl-head">
     <h2 class="caps"><span class="s">Portfolio</span> highlights</h2>
@@ -255,6 +281,7 @@ footer .sig{font-size:20px;color:var(--ink)}
   <div class="center"><a class="link" href="#work">See all portfolio</a></div>
 </div></section>
 
+<div class="gut" aria-hidden="true"><div class="rule"><i></i></div></div>
 <section class="gut" id="engagements" style="padding-top:0"><div class="wrap story">
   <div class="pics" data-set="Engagement">
     <button class="big" data-src="photos/eng-cypress.jpg"><img src="photos/eng-cypress.jpg" alt="Couple between cypress trees and red begonias" loading="lazy"></button>
@@ -294,11 +321,13 @@ footer .sig{font-size:20px;color:var(--ink)}
   </ol>
 </div></section>
 
+<div class="gut" aria-hidden="true"><div class="rule"><i></i></div></div>
 <section class="gut" style="padding-top:0"><div class="wrap">
   <div class="tiles-head"><span class="label">Sessions</span><h2 class="caps">What I <span class="s">photograph</span></h2></div>
   <div class="tiles" id="tiles"></div>
 </div></section>
 
+<div class="gut" aria-hidden="true"><div class="rule"><i></i></div></div>
 <section class="gut" id="work" style="padding-top:0"><div class="wrap">
   <div class="gal-head">
     <h2 class="caps">The <span class="s">portfolio</span></h2>
@@ -454,4 +483,5 @@ document.getElementById('copyBtn').onclick=async e=>{const b=e.currentTarget;
   catch{const r=document.createRange();r.selectNodeContents(out);const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Selected, press copy';}
   setTimeout(()=>b.textContent='Copy message',2500);};
 </script>
+
 </body></html>
