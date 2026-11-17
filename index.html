@@ -1,0 +1,457 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="description" content="Soulmeri: wedding and engagement photography in natural light."><title>Soulmeri</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Inter:wght@300..600&display=swap">
+<style>
+/* Layout: editorial wedding site. Triptych hero with a quote card, a mixed caps + script statement, a scrolling highlights strip,
+   two featured stories (engagement, wedding), about, process, session tiles, full filterable gallery, inquire band. */
+:root{
+  --bg:#FAF8F4; --paper:#F1EDE6; --ink:#1F1E1B; --muted:#5E5A53; --line:#DED9CF; --accent:#6E7D6A;
+  --veil:rgba(18,17,15,.95);
+  --caps:"Bodoni Moda","Didot","Bodoni 72",Georgia,serif;
+  --script:"Bodoni Moda","Didot","Bodoni 72",Georgia,serif;
+  --h:clamp(28px,3.8vw,48px);
+  --body:"Inter",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#161513; --paper:#1F1D1A; --ink:#EDEAE3; --muted:#B5B0A6; --line:#34312C; --accent:#A9B8A3; --veil:rgba(8,8,7,.96); color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#161513; --paper:#1F1D1A; --ink:#EDEAE3; --muted:#B5B0A6; --line:#34312C; --accent:#A9B8A3; --veil:rgba(8,8,7,.96); color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-weight:400;font-size:17px;line-height:1.7;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+@media (max-width:600px){body{font-size:16px;line-height:1.65}}
+h1,h2,h3,h4{font-optical-sizing:auto}
+img{display:block;max-width:100%}
+a{color:inherit}
+.gut{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1280px;margin:0 auto}
+.label{font-family:var(--body);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.caps{font-family:var(--caps);font-weight:400;text-transform:uppercase;letter-spacing:.01em;line-height:1.12;margin:0;text-wrap:balance;font-optical-sizing:auto}
+.s{font-family:var(--script);font-style:italic;text-transform:none;letter-spacing:-.01em;font-weight:400;font-size:1em;color:var(--ink)}
+.btn{display:inline-block;font-family:var(--body);font-weight:500;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;
+  border:1px solid var(--ink);padding:14px 26px;background:transparent;color:var(--ink);cursor:pointer;transition:background .3s,color .3s}
+.btn:hover{background:var(--ink);color:var(--bg)}
+.link{font-weight:500;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:3px;background:none;border-top:0;border-left:0;border-right:0;color:var(--ink);cursor:pointer;font-family:var(--body)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+section{padding-block:clamp(64px,10vw,130px)}
+
+/* Header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:21;background:var(--bg)}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px 28px;flex-wrap:wrap;padding-block:14px}
+@media (max-width:640px){nav a:not(.btn){display:none}}
+.logo{text-decoration:none;display:grid;line-height:1}
+.brand,.logo b{font-family:var(--caps);font-weight:500;font-style:normal;letter-spacing:.1em;text-transform:uppercase;line-height:1}
+.logo b{font-size:24px}
+.logo b i{font-family:var(--script);font-style:italic;font-weight:400;text-transform:none;letter-spacing:0;font-size:1.05em;margin-left:.06em}
+.logo small{font-size:9.5px;font-weight:500;letter-spacing:.32em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+nav{display:flex;gap:8px 26px;flex-wrap:wrap;align-items:center}
+nav a{font-size:12px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;text-decoration:none}
+nav a:hover{color:var(--accent)}
+nav .btn{padding:10px 18px}
+
+/* Hero: one photo with the introduction on it */
+.hero{position:relative;width:100%;height:calc(100svh - 72px);max-height:1100px;min-height:540px;overflow:hidden;background:#2a2824;color:#fff}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 10%}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 35%,rgba(0,0,0,.62) 100%)}
+.hero .intro{position:absolute;inset:auto 0 0 0;z-index:1;padding-inline:max(16px,env(safe-area-inset-left,0px),calc((100% - 1280px)/2)) !important;display:grid;grid-template-columns:1.2fr 1fr;gap:20px 56px;align-items:end;
+  padding:clamp(24px,4vw,56px)}
+.hero .label{color:rgba(255,255,255,.88)}
+.hero h1{font-size:clamp(30px,5vw,64px);color:#fff;margin:14px 0 0;text-shadow:0 2px 30px rgba(0,0,0,.28)}
+.hero .label{text-shadow:0 1px 12px rgba(0,0,0,.35)}
+.hero .s{color:#fff}
+.hero .side{display:grid;gap:20px;min-width:0}
+.hero .side p{margin:0;color:rgba(255,255,255,.92);max-width:30rem}
+.ctas{display:flex;gap:12px 22px;flex-wrap:wrap;align-items:center}
+.btn.solid{background:var(--ink);color:var(--bg)}
+.btn.solid:hover{background:transparent;color:var(--ink)}
+.hero .btn.solid{background:#fff;color:#1F1E1B;border-color:#fff}
+.hero .btn.solid:hover{background:transparent;color:#fff}
+.hero .link{color:#fff}
+@media (max-width:820px){.hero .intro{grid-template-columns:1fr}.hero .ctas{justify-content:flex-start!important}.hero::after{background:linear-gradient(180deg,rgba(0,0,0,0) 20%,rgba(0,0,0,.7) 100%)}}
+@media (max-width:760px){.hero{height:calc(100svh - 64px);min-height:480px}}
+
+/* Divider */
+.divider{display:flex;align-items:center;gap:22px;max-width:1280px;margin:0 auto}
+.divider::before,.divider::after{content:"";flex:1;height:1px;background:var(--line)}
+.divider span{font-size:18px;color:var(--ink)}
+
+/* Statement */
+.statement{text-align:center}
+.statement h2{font-size:var(--h);line-height:1.14;max-width:22em;margin-inline:auto}
+.statement p{max-width:34rem;margin:22px auto 0;color:var(--muted);font-size:16px}
+
+/* Highlights strip */
+.hl-head{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-bottom:28px}
+.hl-head h2{font-size:var(--h)}
+.arrows{display:flex;gap:14px}
+.arrows button{all:unset;cursor:pointer;font-family:var(--caps);font-size:30px;line-height:1;padding:4px 8px}
+.strip{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:4px}
+.strip::-webkit-scrollbar{display:none}
+.strip button{all:unset;cursor:zoom-in;flex:0 0 auto;scroll-snap-align:start;height:clamp(300px,42vw,520px)}
+.strip button:nth-child(even){align-self:end;height:clamp(240px,32vw,400px)}
+.strip img{height:100%;width:auto;object-fit:cover}
+.strip-wrap{display:flex;flex-direction:column}
+.center{text-align:center;margin-top:34px}
+
+/* Stories */
+.story{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(28px,5vw,80px);align-items:center}
+.story.flip{grid-template-columns:1fr 1.1fr}
+.story.flip .pics{order:2}
+.pics{display:grid;grid-template-columns:1.4fr 1fr;gap:10px;align-items:end}
+.pics button{all:unset;cursor:zoom-in;display:block}
+.pics .big{grid-row:span 2}
+.pics img{width:100%;height:auto}
+.pics .big img{aspect-ratio:2/3;object-fit:cover}
+.pics .sm img{aspect-ratio:4/5;object-fit:cover}
+.story .txt{display:grid;gap:18px;min-width:0}
+.story h3{font-size:var(--h)}
+.story p{margin:0;color:var(--muted);max-width:30rem}
+@media (max-width:820px){.story,.story.flip{grid-template-columns:1fr}.story.flip .pics{order:0}}
+
+/* About */
+.about{background:var(--paper)}
+.about .inner{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(28px,6vw,90px);align-items:center}
+.about .duo{display:block;max-width:520px}
+.about .duo img{aspect-ratio:3/4;object-fit:cover;width:100%}
+.about .duo .me{aspect-ratio:4/5.6;object-position:50% 20%}
+
+.about .txt{display:grid;gap:18px;min-width:0}
+.about h2{font-size:var(--h)}
+.about p{margin:0;max-width:34rem}
+@media (max-width:820px){.about .inner{grid-template-columns:1fr}}
+
+/* Process */
+.process h2{text-align:center;font-size:var(--h);margin-bottom:48px}
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(18px,3vw,40px);list-style:none;padding:0;margin:0;counter-reset:s}
+.steps li{border-top:1px solid var(--line);padding-top:20px;display:grid;gap:8px;counter-increment:s}
+.steps li::before{content:"0" counter(s);font-family:var(--caps);font-style:italic;font-size:18px;color:var(--muted)}
+.steps h4{margin:0;font-family:var(--caps);font-weight:400;font-size:24px;text-transform:uppercase;letter-spacing:.03em}
+.steps p{margin:0;color:var(--muted);font-size:15px;line-height:1.6}
+@media (max-width:820px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:440px){.steps{grid-template-columns:1fr}}
+
+/* Session tiles */
+.tiles-head{text-align:center;margin-bottom:40px;display:grid;gap:10px}
+.tiles-head h2{font-size:var(--h)}
+.tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.tile{all:unset;cursor:pointer;position:relative;display:block;overflow:hidden;aspect-ratio:3/4;background:var(--line)}
+.tile img{width:100%;height:100%;object-fit:cover;transition:transform 1s cubic-bezier(.2,.7,.2,1)}
+.tile:hover img{transform:scale(1.04)}
+.tile span{position:absolute;inset:auto 0 0 0;padding:40px 16px 18px;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.55));
+  font-family:var(--caps);text-transform:uppercase;letter-spacing:.05em;font-size:clamp(16px,1.8vw,22px);text-align:center}
+.tile span small{display:block;font-family:var(--body);font-weight:500;font-size:10px;letter-spacing:.2em;opacity:.85;margin-top:4px}
+@media (max-width:760px){.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* Gallery */
+.gal-head{display:flex;justify-content:space-between;align-items:end;gap:18px 32px;flex-wrap:wrap;margin-bottom:30px;border-bottom:1px solid var(--line);padding-bottom:18px}
+.gal-head h2{font-size:var(--h)}
+.filters{display:flex;gap:6px 20px;flex-wrap:wrap}
+.filters button{all:unset;cursor:pointer;font-family:var(--body);font-weight:500;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding-block:4px;border-bottom:1px solid transparent;white-space:nowrap}
+.filters button[aria-pressed="true"]{color:var(--ink);border-color:var(--ink)}
+.filters button:hover{color:var(--ink)}
+.filters sup{font-size:9px;letter-spacing:0;margin-left:3px;font-variant-numeric:tabular-nums}
+.grid{columns:3 280px;column-gap:12px}
+.grid figure{margin:0 0 12px;break-inside:avoid}
+.grid button{all:unset;cursor:zoom-in;display:block;overflow:hidden;background:var(--line)}
+.grid img{width:100%;height:auto;transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.grid button:hover img{transform:scale(1.03)}
+.galbox{position:relative}
+.galbox.closed .grid{max-height:min(620px,80vh);overflow:hidden}
+.galbox.closed::after{content:"";position:absolute;left:0;right:0;bottom:0;height:200px;pointer-events:none;background:linear-gradient(rgba(0,0,0,0),var(--bg))}
+.galtoggle{display:flex;justify-content:center;margin-top:26px}
+.galtoggle .btn{display:inline-flex;gap:12px;align-items:center}
+.galtoggle .chev{display:inline-block;transition:transform .3s}
+.galtoggle [aria-expanded="true"] .chev{transform:rotate(180deg)}
+
+/* Booking */
+.book{background:var(--paper)}
+.book .inner{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,72px);align-items:stretch}
+.book .pic{position:relative;min-height:520px}
+.book .pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:40% 60%}
+.book h2{font-size:var(--h)}
+.book .lead{margin:0;color:var(--muted);font-size:16px;line-height:1.65;max-width:32rem}
+form{display:grid;grid-template-columns:1fr 1fr;gap:14px 16px}
+form .full{grid-column:1/3}
+label{display:grid;gap:8px;font-weight:500;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);min-width:0}
+input,select,textarea{font:inherit;font-size:15px;line-height:1.4;letter-spacing:0;text-transform:none;color:var(--ink);background:var(--bg);border:1px solid var(--line);padding:10px 12px;border-radius:0;width:100%;height:44px}
+@media (max-width:600px){input,select,textarea{font-size:16px}}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--ink)}
+textarea{height:auto;min-height:96px;resize:vertical}
+.err{color:#A2412F;font-size:14px;margin:0}
+.done{display:grid;gap:14px;border:1px solid var(--line);background:var(--bg);padding:24px}
+.done pre{white-space:pre-wrap;font:inherit;font-size:15px;margin:0;color:var(--ink)}
+@media (max-width:820px){.book .inner{grid-template-columns:1fr}.book .pic{display:none}}
+@media (max-width:520px){form{grid-template-columns:1fr}form .full{grid-column:auto}}
+.bookbar{display:none}
+@media (max-width:640px){.bookbar{display:block;position:fixed;left:0;right:0;bottom:0;z-index:30;
+  padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));background:var(--bg);border-top:1px solid var(--line)}
+  .bookbar a{display:block;text-align:center}body{padding-bottom:70px}}
+
+footer{padding-block:34px 44px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:baseline;font-size:12px;color:var(--muted);letter-spacing:.06em}
+footer .sig{font-size:20px;color:var(--ink)}
+
+/* Viewer */
+.lb{position:fixed;inset:0;z-index:50;background:var(--veil);display:grid;place-items:center;
+  padding:calc(56px + env(safe-area-inset-top,0px)) max(60px,env(safe-area-inset-right,0px)) calc(56px + env(safe-area-inset-bottom,0px)) max(60px,env(safe-area-inset-left,0px))}
+.lb img{max-width:100%;max-height:100%;object-fit:contain}
+.lb button{all:unset;cursor:pointer;position:absolute;color:#EDEAE3;font-size:12px;letter-spacing:.24em;text-transform:uppercase;padding:10px}
+.lb .close{top:calc(14px + env(safe-area-inset-top,0px));right:max(14px,env(safe-area-inset-right,0px))}
+.lb .prev,.lb .next{top:50%;transform:translateY(-50%);font-size:32px;letter-spacing:0;font-family:var(--caps)}
+.lb .prev{left:max(8px,env(safe-area-inset-left,0px))}
+.lb .next{right:max(8px,env(safe-area-inset-right,0px))}
+.lb .count{position:absolute;bottom:calc(18px + env(safe-area-inset-bottom,0px));left:0;right:0;text-align:center;color:#A39E94;font-size:11px;letter-spacing:.24em;text-transform:uppercase}
+@media (max-width:600px){.lb{padding-left:max(12px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px))}.lb .prev,.lb .next{top:auto;bottom:calc(6px + env(safe-area-inset-bottom,0px));transform:none}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style><style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}[hidden]{display:none!important}</style></head><body>
+
+<div class="gut top"><div class="wrap">
+  <header>
+    <a class="logo" href="#top" id="top"><b>Soulmeri</b><small>Photography</small></a>
+    <nav aria-label="Main">
+      <a href="#work">Portfolio</a><a href="#about">About</a><a href="#experience">Experience</a>
+      <a class="btn" href="#inquire">Book now</a>
+    </nav>
+  </header>
+</div></div>
+
+<div class="hero">
+  <img src="photos/wed-magnolia-couple.jpg" alt="Bride and groom among white magnolias">
+  <div class="intro">
+    <div><span class="label">Wedding &amp; engagement photographer</span><h1 class="brand">Soulmeri</h1></div>
+  </div>
+</div>
+
+<section class="statement gut"><div class="wrap">
+  <h2 class="caps">Documenting <span class="s">your</span><br><span class="s">most</span> beautiful and<br>special <span class="s">stories</span></h2>
+  <p>Weddings and engagements in natural light, with gentle direction and photographs that feel like the day felt.</p>
+  <div style="margin-top:32px"><a class="btn solid" href="#inquire">Check my date</a></div>
+</div></section>
+
+<div class="gut"><div class="divider" role="separator"><span class="brand">Soulmeri</span></div></div>
+
+<section class="gut" id="weddings"><div class="wrap story flip">
+  <div class="pics" data-set="Wedding">
+    <button class="big" data-src="photos/wed-columns.jpg"><img src="photos/wed-columns.jpg" alt="Bride and groom at a white balustrade between columns" loading="lazy" style="object-position:50% 20%"></button>
+    <button class="sm" data-src="photos/wed-vintage-car.jpg"><img src="photos/wed-vintage-car.jpg" alt="Bride smiling in the back of a vintage car" loading="lazy" style="object-position:50% 15%"></button>
+    <button class="sm" data-src="photos/wed-car-bouquet.jpg"><img src="photos/wed-car-bouquet.jpg" alt="Bouquet on a white vintage car" loading="lazy"></button>
+  </div>
+  <div class="txt">
+    <span class="label">Weddings</span>
+    <h3 class="caps">Spring <span class="s">in bloom</span></h3>
+    <p>Magnolias, lace and a vintage car. I cover the whole day, from getting ready to the last dance, and I watch for the small details your family will want to keep.</p>
+    <div><button class="link" data-filter="wedding">View weddings</button></div>
+  </div>
+</div></section>
+
+
+
+<section class="gut" style="padding-top:0"><div class="wrap strip-wrap">
+  <div class="hl-head">
+    <h2 class="caps"><span class="s">Portfolio</span> highlights</h2>
+    <div class="arrows"><button id="hlPrev" aria-label="Scroll highlights left">⟵</button><button id="hlNext" aria-label="Scroll highlights right">⟶</button></div>
+  </div>
+  <div class="strip" id="strip"></div>
+  <div class="center"><a class="link" href="#work">See all portfolio</a></div>
+</div></section>
+
+<section class="gut" id="engagements" style="padding-top:0"><div class="wrap story">
+  <div class="pics" data-set="Engagement">
+    <button class="big" data-src="photos/eng-cypress.jpg"><img src="photos/eng-cypress.jpg" alt="Couple between cypress trees and red begonias" loading="lazy"></button>
+    <button class="sm" data-src="photos/eng-steps-ivy.jpg"><img src="photos/eng-steps-ivy.jpg" alt="Couple embracing on steps beside red ivy" loading="lazy"></button>
+    <button class="sm" data-src="photos/eng-sconce.jpg"><img src="photos/eng-sconce.jpg" alt="Couple under a glowing sconce" loading="lazy"></button>
+  </div>
+  <div class="txt">
+    <span class="label">Engagements</span>
+    <h3 class="caps">A garden <span class="s">afternoon</span></h3>
+    <p>Brick archways, cypress walks and a conservatory full of light. Engagement sessions are where we get comfortable together, so on the wedding day the camera feels like a friend.</p>
+    <div><button class="link" data-filter="engagement">View engagements</button></div>
+  </div>
+</div></section>
+
+
+
+<section class="about gut" id="about"><div class="wrap inner">
+  <div class="duo">
+    <img class="me" src="photos/meri.jpg" alt="Meri, the photographer, smiling in a cream beret and sweater" loading="lazy">
+  </div>
+  <div class="txt">
+    <span class="label">About</span>
+    <h2 class="caps"><span class="s">Meet</span> Meri</h2>
+    <p>I'm Meri, the photographer behind Soul Studio. I love soft light, honest expressions and the quiet in-between moments that most people miss.</p>
+    <p>My sessions are relaxed and guided. I'll tell you where to stand and what to do with your hands, then step back and let the real moments happen.</p>
+    <div><a class="btn solid" href="#inquire">Check my date</a></div>
+  </div>
+</div></section>
+
+<section class="process gut" id="experience"><div class="wrap">
+  <h2 class="caps">The <span class="s">experience</span></h2>
+  <ol class="steps">
+    <li><h4>Inquire</h4><p>Tell me about your day, your story and what you picture.</p></li>
+    <li><h4>Plan</h4><p>We choose the location, light and timing, and I send a styling guide.</p></li>
+    <li><h4>Session</h4><p>Relaxed, guided and fun. No stiff poses.</p></li>
+    <li><h4>Gallery</h4><p>Your edited photos arrive in a private online gallery to download and share.</p></li>
+  </ol>
+</div></section>
+
+<section class="gut" style="padding-top:0"><div class="wrap">
+  <div class="tiles-head"><span class="label">Sessions</span><h2 class="caps">What I <span class="s">photograph</span></h2></div>
+  <div class="tiles" id="tiles"></div>
+</div></section>
+
+<section class="gut" id="work" style="padding-top:0"><div class="wrap">
+  <div class="gal-head">
+    <h2 class="caps">The <span class="s">portfolio</span></h2>
+    <div class="filters" id="filters" aria-label="Portfolio categories"></div>
+  </div>
+  <div class="galbox closed" id="galbox"><div class="grid" id="grid"></div></div>
+  <div class="galtoggle"><button class="btn solid" id="galToggle" type="button" aria-expanded="false" aria-controls="galbox"><span id="galLabel">See all photos</span><span class="chev" aria-hidden="true">⌄</span></button></div>
+</div></section>
+
+<section class="book gut" id="inquire"><div class="wrap inner">
+  <div class="pic"><img src="photos/eng-iron-gate.jpg" alt="Engaged couple under a wrought iron garden gate" loading="lazy"></div>
+  <div style="display:grid;gap:18px;min-width:0;align-content:center">
+    <span class="label">Book a session</span>
+    <h2 class="caps">Let's create <span class="s">something timeless</span></h2>
+    <p class="lead">Now booking weddings, engagements, families and pregnancy sessions. Fill this in and send it to me on Instagram. I reply personally.</p>
+    <form id="bookForm" novalidate>
+      <label>Your names<input id="f-name" name="name" autocomplete="name" required></label>
+      <label>Email<input id="f-email" name="email" type="email" autocomplete="email" required></label>
+      <label>Session type<select id="f-type" name="type">
+        <option>Wedding</option><option>Engagement</option><option>Couples</option><option>Family</option><option>Pregnancy</option><option>Business &amp; founders</option><option>Jewelry / brand</option><option>Portrait</option></select></label>
+      <label>Date<input id="f-date" name="date" type="date"></label>
+      <label class="full">Location or venue<input id="f-loc" name="loc"></label>
+      <label class="full">Tell me about your plans<textarea id="f-msg" name="msg"></textarea></label>
+      <p class="err full" id="f-err" hidden>Please add your names and an email so I can reply.</p>
+      <div class="full ctas"><button class="btn solid" type="submit">Prepare my inquiry</button></div>
+    </form>
+    <div class="done" id="done" hidden>
+      <strong style="font-weight:500">Your inquiry is ready. Copy it and send it to me on Instagram.</strong>
+      <pre id="msgOut"></pre>
+      <div class="ctas"><button class="btn solid" id="copyBtn" type="button">Copy message</button>
+        <a class="btn" href="https://instagram.com/soulmeri" target="_blank" rel="noopener">Open Instagram @soulmeri</a>
+        <button class="link" id="editBtn" type="button">Edit</button></div>
+    </div>
+  </div>
+</div></section>
+<div class="bookbar"><a class="btn solid" href="#inquire">Book a session</a></div>
+
+<div class="gut"><div class="wrap">
+  <footer><span class="sig brand">Soulmeri</span><span>© 2026 · All photographs by Meri · Soul Studio</span></footer>
+</div></div>
+
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Photo viewer">
+  <img id="lbImg" alt="">
+  <button class="close" id="lbClose">Close ✕</button>
+  <button class="prev" id="lbPrev" aria-label="Previous photo">‹</button>
+  <button class="next" id="lbNext" aria-label="Next photo">›</button>
+  <div class="count" id="lbCount"></div>
+</div>
+
+<script>
+// To add photos: put the file in photos/ and add one line here.
+const PHOTOS = [{"src":"photos/eng-arch-gate.jpg","cat":"Engagement","alt":"Couple walking hand in hand out of a brick garden archway","w":999,"h":1500},{"src":"photos/eng-conservatory.jpg","cat":"Engagement","alt":"Couple walking through a sunlit conservatory with arched green doors","w":1000,"h":1500},{"src":"photos/eng-cypress.jpg","cat":"Engagement","alt":"Couple forehead to forehead between tall cypress and red begonias","w":1000,"h":1500},{"src":"photos/eng-twirl-window.jpg","cat":"Engagement","alt":"Twirl in front of an arched window on a red brick wall","w":1000,"h":1500},{"src":"photos/eng-steps-ivy.jpg","cat":"Engagement","alt":"Couple embracing on stone steps beside red ivy","w":1000,"h":1500},{"src":"photos/eng-iron-gate.jpg","cat":"Engagement","alt":"Couple under an ornate wrought iron gate in a formal garden","w":1000,"h":1500},{"src":"photos/eng-window-light.jpg","cat":"Engagement","alt":"Backlit couple touching foreheads by a tall window","w":1000,"h":1500},{"src":"photos/eng-sconce.jpg","cat":"Engagement","alt":"Couple leaning on a wood-panelled wall under a glowing sconce","w":1000,"h":1500},{"src":"photos/eng-ivy-embrace.jpg","cat":"Engagement","alt":"Embrace under ivy in dappled light, engagement ring visible","w":1000,"h":1500},{"src":"photos/eng-balustrade-twirl.jpg","cat":"Engagement","alt":"Twirl on a stone terrace above the garden","w":1000,"h":1500},{"src":"photos/eng-balcony.jpg","cat":"Engagement","alt":"Couple on a stone balcony framed by leaves","w":1000,"h":1500},{"src":"photos/eng-doorway.jpg","cat":"Engagement","alt":"Couple framed by open glass doors onto the lawn","w":1000,"h":1500},{"src":"photos/eng-lawn-run.jpg","cat":"Engagement","alt":"Couple running barefoot across a garden lawn","w":1000,"h":1500},{"src":"photos/eng-clock-tower.jpg","cat":"Engagement","alt":"Couple running down a brick path toward a clock tower","w":1000,"h":1500},{"src":"photos/wed-lace-train.jpg","cat":"Wedding","alt":"Bride in a lace gown with a long train on a magnolia terrace","w":1169,"h":1500},{"src":"photos/wed-magnolia-couple.jpg","cat":"Wedding","alt":"Bride and groom among white magnolias","w":1197,"h":1500},{"src":"photos/wed-magnolia-bride.jpg","cat":"Wedding","alt":"Bride in an off-shoulder satin gown before a magnolia bush","w":1169,"h":1500},{"src":"photos/wed-columns.jpg","cat":"Wedding","alt":"Bride and groom at a white balustrade between columns","w":1183,"h":1500},{"src":"photos/wed-flower-girl.jpg","cat":"Wedding","alt":"Bride sharing a kiss with the flower girl","w":1206,"h":1500},{"src":"photos/wed-vintage-car.jpg","cat":"Wedding","alt":"Bride smiling in the back of a vintage car","w":1175,"h":1500},{"src":"photos/wed-forehead-kiss.jpg","cat":"Wedding","alt":"Groom kissing the bride's forehead, sequined gown","w":1283,"h":1500},{"src":"photos/wed-bride-window.jpg","cat":"Wedding","alt":"Bride with a pink bouquet by a window","w":1173,"h":1500},{"src":"photos/wed-bouquet.jpg","cat":"Wedding","alt":"Garden rose and air plant bouquet against lace","w":1290,"h":1140},{"src":"photos/wed-car-bouquet.jpg","cat":"Wedding","alt":"Bouquet resting on a white vintage car","w":1209,"h":1500},{"src":"photos/wed-peonies.jpg","cat":"Wedding","alt":"White peony bouquet by the lake","w":1290,"h":1274},{"src":"photos/wed-callas.jpg","cat":"Wedding","alt":"White calla lilies close-up","w":1178,"h":1500},{"src":"photos/preg-loft-stool.jpg","cat":"Pregnancy","alt":"Expecting couple in a sunlit loft, black gown","w":1220,"h":1500},{"src":"photos/preg-listening.jpg","cat":"Pregnancy","alt":"Father kneeling to listen to the bump","w":1216,"h":1500},{"src":"photos/preg-baby-shoes.jpg","cat":"Pregnancy","alt":"Expecting couple holding tiny shoes to the bump","w":1217,"h":1500},{"src":"photos/preg-silhouette.jpg","cat":"Pregnancy","alt":"Expecting mother in black, soft window silhouette","w":1210,"h":1500},{"src":"photos/preg-profile.jpg","cat":"Pregnancy","alt":"Expecting mother in profile, black off-shoulder dress","w":1223,"h":1500},{"src":"photos/wedding-organza-standing.jpg","cat":"Wedding","alt":"Bride in a sheer organza gown among white lilies","w":1000,"h":1500},{"src":"photos/wedding-organza-film.jpg","cat":"Wedding","alt":"Bride crouching in flowing organza, soft film tones","w":1027,"h":1500},{"src":"photos/wedding-organza-turn.jpg","cat":"Wedding","alt":"Bride turning in an organza cape, studio drapes","w":1000,"h":1500},{"src":"photos/wedding-organza-seated.jpg","cat":"Wedding","alt":"Bride seated among white flowers and draped fabric","w":1000,"h":1500},{"src":"photos/wedding-couple-laugh.jpg","cat":"Wedding","alt":"Couple in navy suit and satin dress laughing together","w":1000,"h":1500},{"src":"photos/couples-denim.jpg","cat":"Couples","alt":"Couple in white and denim leaning on a white wall","w":1000,"h":1500},{"src":"photos/family-christmas-forehead.jpg","cat":"Family","alt":"Mother and daughter forehead to forehead by a Christmas tree","w":1027,"h":1414},{"src":"photos/family-christmas-hug.jpg","cat":"Family","alt":"Daughter hugging her mother from behind by a Christmas tree","w":923,"h":1381},{"src":"photos/family-floor-smiles.jpg","cat":"Family","alt":"Parents and baby daughter cuddled together on the floor","w":1000,"h":1500},{"src":"photos/family-lift.jpg","cat":"Family","alt":"Father lifting baby overhead while mother laughs","w":1000,"h":1500},{"src":"photos/family-brown-curtain.jpg","cat":"Family","alt":"Family portrait with tulle gown against a brown curtain","w":1000,"h":1500},{"src":"photos/family-boy-laughing.jpg","cat":"Family","alt":"Little boy laughing on his mother's lap as dad leans in","w":1209,"h":1500},{"src":"photos/family-lollipops.jpg","cat":"Family","alt":"Family of four with two boys and lollipops on a boucle chair","w":1000,"h":1500},{"src":"photos/family-girls-hug.jpg","cat":"Family","alt":"Two girls hugging their laughing mother, father beside them","w":1000,"h":1500},{"src":"photos/family-white-hug.jpg","cat":"Family","alt":"Toddler hugging both parents, all dressed in white","w":1097,"h":1500},{"src":"photos/family-first-birthday.jpg","cat":"Family","alt":"One-year-old on a rocking horse beside a smash cake","w":1000,"h":1500},{"src":"photos/family-mother-baby.jpg","cat":"Family","alt":"Mother in a tulle gown holding her baby girl","w":998,"h":1500},{"src":"photos/family-father-baby.jpg","cat":"Family","alt":"Father holding his baby daughter on a leather chair","w":1000,"h":1500},{"src":"photos/pregnancy-silver-silk.jpg","cat":"Pregnancy","alt":"Expecting mother in silver silk with fabric flying behind","w":1000,"h":1500},{"src":"photos/pregnancy-black-profile.jpg","cat":"Pregnancy","alt":"Expecting mother in a black turtleneck dress, profile","w":1090,"h":1500},{"src":"photos/pregnancy-pleated-gown.jpg","cat":"Pregnancy","alt":"Expecting mother in a pleated sheer gown on a boucle chair","w":1000,"h":1500},{"src":"photos/pregnancy-white-gown.jpg","cat":"Pregnancy","alt":"Expecting mother in a white off-shoulder gown","w":1000,"h":1500},{"src":"photos/pregnancy-rosette.jpg","cat":"Pregnancy","alt":"Expecting mother in a blush gown with a large rosette","w":1079,"h":1500},{"src":"photos/pregnancy-black-hijab.jpg","cat":"Pregnancy","alt":"Expecting mother in black holding her bump by an olive tree","w":1000,"h":1500},{"src":"photos/pregnancy-couple-look-up.jpg","cat":"Pregnancy","alt":"Husband looking up at his smiling pregnant wife","w":981,"h":1500},{"src":"photos/pregnancy-forehead-kiss.jpg","cat":"Pregnancy","alt":"Husband kissing his pregnant wife's forehead, all in white","w":1024,"h":1500},{"src":"photos/pregnancy-toddler.jpg","cat":"Pregnancy","alt":"Expecting parents playing with their toddler daughter","w":1000,"h":1500},{"src":"photos/pregnancy-ultrasound.jpg","cat":"Pregnancy","alt":"Couple smiling at an ultrasound photo","w":1000,"h":1500},{"src":"photos/pregnancy-big-brother.jpg","cat":"Pregnancy","alt":"Little boy hugging his mother's bump","w":973,"h":1500},{"src":"photos/pregnancy-tulip.jpg","cat":"Pregnancy","alt":"Expecting mother smelling a tulip against a sage wall","w":1000,"h":1500},{"src":"photos/pregnancy-generations.jpg","cat":"Pregnancy","alt":"Three generations of women with white tulips","w":1085,"h":1500},{"src":"photos/business-cofounders.jpg","cat":"Business","alt":"Two co-founders in brand tees holding books","w":1000,"h":1500},{"src":"photos/business-founder-bw.jpg","cat":"Business","alt":"Founder in a brand tee seated in a steel chair, black and white","w":1000,"h":1500},{"src":"photos/business-laptop.jpg","cat":"Business","alt":"Founder in a black blazer holding a laptop","w":1000,"h":1500},{"src":"photos/business-blazer.jpg","cat":"Business","alt":"Professional in a beige blazer, hand on cheek","w":1000,"h":1500},{"src":"photos/business-suit.jpg","cat":"Business","alt":"Woman in a brown suit seated on a wooden stool","w":1000,"h":1500},{"src":"photos/business-trench.jpg","cat":"Business","alt":"Woman in a trench coat on a black leather sofa","w":1000,"h":1500},{"src":"photos/jewelry-campaign-seated.jpg","cat":"Jewelry","alt":"Model wearing a full silver jewelry set with tulips","w":1000,"h":1500},{"src":"photos/jewelry-earring-necklace.jpg","cat":"Jewelry","alt":"Close-up of filigree earrings and layered necklaces","w":1000,"h":1500},{"src":"photos/jewelry-profile.jpg","cat":"Jewelry","alt":"Profile with filigree earring and a white rose","w":1000,"h":1500},{"src":"photos/jewelry-ring.jpg","cat":"Jewelry","alt":"Hands showing a filigree cocktail ring","w":1000,"h":1500},{"src":"photos/jewelry-lariat.jpg","cat":"Jewelry","alt":"Pearl lariat necklace, ring and bracelet close-up","w":1320,"h":1500},{"src":"photos/jewelry-tulip.jpg","cat":"Jewelry","alt":"Layered necklaces and rings with a pink tulip","w":1000,"h":1500},{"src":"photos/jewelry-bracelet.jpg","cat":"Jewelry","alt":"Hands fastening a delicate filigree bracelet","w":1000,"h":1500},{"src":"photos/jewelry-arms-crossed.jpg","cat":"Jewelry","alt":"Model with crossed arms wearing rings and pendants among tulips","w":1000,"h":1500},{"src":"photos/jewelry-rose-ring.jpg","cat":"Jewelry","alt":"Statement ring and pendant with a white rose","w":1000,"h":1500},{"src":"photos/portrait-braid-dance.jpg","cat":"Portraits","alt":"Dancer with a floor-length braid and flowing white fabric","w":1002,"h":1500},{"src":"photos/portrait-braid-veil.jpg","cat":"Portraits","alt":"Woman with a long braid lifting a sheer veil","w":1002,"h":1500},{"src":"photos/portrait-braid-seated.jpg","cat":"Portraits","alt":"Woman with a long braid seated on a white floor, smiling","w":1002,"h":1500},{"src":"photos/portrait-loft-window.jpg","cat":"Portraits","alt":"Woman in a brown dress by a sunlit loft window","w":1002,"h":1500},{"src":"photos/portrait-black-chair.jpg","cat":"Portraits","alt":"Woman in a black one-shoulder dress on a steel chair","w":1000,"h":1500},{"src":"photos/portrait-black-turtleneck.jpg","cat":"Portraits","alt":"Woman in a black turtleneck reclining on black velvet","w":1000,"h":1500},{"src":"photos/portrait-mirror.jpg","cat":"Portraits","alt":"Woman in a polka-dot dress reflected in a gilded mirror","w":1000,"h":1500},{"src":"photos/portrait-white-sofa.jpg","cat":"Portraits","alt":"Woman in a black slip dress leaning on a white sofa","w":1000,"h":1500},{"src":"photos/portrait-brown-dress.jpg","cat":"Portraits","alt":"Woman in a brown dress on a boucle chair","w":1025,"h":1327},{"src":"photos/portrait-beauty.jpg","cat":"Portraits","alt":"Beauty portrait with windswept hair","w":1000,"h":1500}];
+const ORDER = ["Wedding","Engagement","Couples","Family","Pregnancy","Business","Jewelry","Portraits"];
+const LABEL = {Business:"Business & Founders"};
+const COVER = {Wedding:"wed-lace-train",Engagement:"eng-twirl-window",Couples:"couples-denim",Family:"family-lift",
+  Pregnancy:"preg-silhouette",Business:"business-cofounders",Jewelry:"jewelry-campaign-seated",Portraits:"portrait-braid-dance"};
+const HIGHLIGHTS = ["eng-arch-gate","wed-lace-train","eng-twirl-window","wed-columns","eng-window-light","wed-magnolia-bride",
+  "eng-balustrade-twirl","wed-forehead-kiss","eng-doorway","wed-vintage-car","eng-lawn-run","wed-peonies"];
+const name = c => LABEL[c]||c, slug = c => c.toLowerCase();
+const bySlug = s => PHOTOS.find(p=>p.src===`photos/${s}.jpg`);
+const cats = ORDER.filter(c=>PHOTOS.some(p=>p.cat===c));
+
+/* Viewer (works on any list) */
+const lb=document.getElementById('lb'), lbImg=document.getElementById('lbImg'), lbCount=document.getElementById('lbCount');
+let list=[], idx=0, lastFocus=null;
+function show(){const p=list[idx];lbImg.src=p.src;lbImg.alt=p.alt;lbCount.textContent=`${name(p.cat)} · ${idx+1} / ${list.length}`;}
+function openLb(l,i){list=l;idx=i;lastFocus=document.activeElement;show();lb.hidden=false;document.body.style.overflow='hidden';document.getElementById('lbClose').focus();}
+function closeLb(){lb.hidden=true;document.body.style.overflow='';lastFocus&&lastFocus.focus();}
+function step(d){idx=(idx+d+list.length)%list.length;show();}
+document.getElementById('lbClose').onclick=closeLb;
+document.getElementById('lbPrev').onclick=()=>step(-1);
+document.getElementById('lbNext').onclick=()=>step(1);
+lb.addEventListener('click',e=>{if(e.target===lb)closeLb();});
+document.addEventListener('keydown',e=>{if(lb.hidden)return;if(e.key==='Escape')closeLb();if(e.key==='ArrowLeft')step(-1);if(e.key==='ArrowRight')step(1);});
+let tx=null;lb.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});
+lb.addEventListener('touchend',e=>{if(tx===null)return;const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>40)step(dx<0?1:-1);tx=null;});
+
+/* Highlights strip */
+const strip=document.getElementById('strip');
+const hl=HIGHLIGHTS.map(bySlug).filter(Boolean);
+hl.forEach((p,i)=>{const b=document.createElement('button');b.setAttribute('aria-label','Open photo: '+p.alt);
+  b.innerHTML=`<img src="${p.src}" alt="${p.alt}" loading="${i<4?'eager':'lazy'}">`;b.onclick=()=>openLb(hl,i);strip.appendChild(b);});
+const scrollAmt=()=>Math.max(260,strip.clientWidth*.7);
+document.getElementById('hlPrev').onclick=()=>strip.scrollBy({left:-scrollAmt(),behavior:'smooth'});
+document.getElementById('hlNext').onclick=()=>strip.scrollBy({left:scrollAmt(),behavior:'smooth'});
+
+/* Story photo groups open the full category */
+document.querySelectorAll('.pics').forEach(g=>{
+  const set=PHOTOS.filter(p=>p.cat===g.dataset.set);
+  g.querySelectorAll('button').forEach(b=>{b.setAttribute('aria-label','Open photo');
+    b.onclick=()=>openLb(set,Math.max(0,set.findIndex(p=>p.src===b.dataset.src)));});
+});
+
+/* Session tiles */
+const tiles=document.getElementById('tiles');
+cats.forEach(c=>{const p=bySlug(COVER[c])||PHOTOS.find(x=>x.cat===c);const n=PHOTOS.filter(x=>x.cat===c).length;
+  const t=document.createElement('button');t.className='tile';t.setAttribute('aria-label',`Show ${name(c)} photos`);
+  t.innerHTML=`<img src="${p.src}" alt="" loading="lazy"><span>${name(c)}<small>${n} photos</small></span>`;
+  t.onclick=()=>go(slug(c),true);tiles.appendChild(t);});
+
+/* Gallery with filters (category lives in the link: #wedding, #engagement …) */
+const grid=document.getElementById('grid'), filters=document.getElementById('filters');
+let current="All";
+function mixed(){const b=cats.map(c=>PHOTOS.filter(p=>p.cat===c));const out=[];
+  for(let i=0;b.some(x=>x.length>i);i++)b.forEach(x=>{if(x[i])out.push(x[i]);});return out;}
+function render(){
+  filters.innerHTML="";
+  ["All",...cats].forEach(c=>{const b=document.createElement('button');
+    const n=c==="All"?PHOTOS.length:PHOTOS.filter(p=>p.cat===c).length;
+    b.innerHTML=`${name(c)}<sup>${n}</sup>`;b.setAttribute('aria-pressed',c===current);
+    b.onclick=()=>go(c==="All"?"all":slug(c));filters.appendChild(b);});
+  const vis=current==="All"?mixed():PHOTOS.filter(p=>p.cat===current);
+  grid.innerHTML="";
+  vis.forEach((p,i)=>{const f=document.createElement('figure');
+    f.innerHTML=`<button aria-label="Open photo: ${p.alt}"><img src="${p.src}" alt="${p.alt}" width="${p.w}" height="${p.h}" loading="lazy"></button>`;
+    f.querySelector('button').onclick=()=>openLb(vis,i);grid.appendChild(f);});
+  updToggle(vis.length);
+}
+/* Portfolio opens like a dropdown: a preview first, the full gallery on request */
+const galbox=document.getElementById('galbox'), galToggle=document.getElementById('galToggle'), galLabel=document.getElementById('galLabel');
+let galOpen=false, openNext=false;
+function updToggle(n){n=n??grid.children.length;
+  galLabel.textContent=galOpen?'Close portfolio':`See all ${n} photos`;galToggle.setAttribute('aria-expanded',galOpen);}
+function setOpen(o){galOpen=o;galbox.classList.toggle('closed',!o);updToggle();
+  if(!o)document.getElementById('work').scrollIntoView({behavior:'smooth'});}
+galToggle.onclick=()=>setOpen(!galOpen);
+function go(h,open){ if(open)openNext=true; if(location.hash==='#'+h) route(true); else location.hash=h; }
+function route(scroll){
+  const h=location.hash.slice(1);
+  if(h==="all"||cats.some(c=>slug(c)===h)){
+    current = h==="all" ? "All" : cats.find(c=>slug(c)===h);
+    if(openNext){galOpen=true;galbox.classList.remove('closed');openNext=false;}
+    render();
+    if(scroll!==false) document.getElementById('work').scrollIntoView({behavior:'smooth'});
+  }
+}
+document.querySelectorAll('[data-filter]').forEach(b=>b.onclick=()=>go(b.dataset.filter,true));
+window.addEventListener('hashchange',()=>route(true));
+render(); route(true);
+
+/* Booking form: builds a message to send by Instagram DM */
+const form=document.getElementById('bookForm'), done=document.getElementById('done'), out=document.getElementById('msgOut');
+form.addEventListener('submit',e=>{e.preventDefault();
+  const v=id=>document.getElementById(id).value.trim();
+  if(!v('f-name')||!/^\S+@\S+\.\S+$/.test(v('f-email'))){document.getElementById('f-err').hidden=false;return;}
+  document.getElementById('f-err').hidden=true;
+  const d=v('f-date')?new Date(v('f-date')+'T12:00').toLocaleDateString(undefined,{year:'numeric',month:'long',day:'numeric'}):'flexible';
+  out.textContent=`Hi Meri! I'd love to book a ${v('f-type').toLowerCase()} session.\n\nNames: ${v('f-name')}\nEmail: ${v('f-email')}\nDate: ${d}\nLocation: ${v('f-loc')||'not decided yet'}\n\n${v('f-msg')}`.trim();
+  form.hidden=true;done.hidden=false;});
+document.getElementById('editBtn').onclick=()=>{done.hidden=true;form.hidden=false;};
+document.getElementById('copyBtn').onclick=async e=>{const b=e.currentTarget;
+  try{await navigator.clipboard.writeText(out.textContent);b.textContent='Copied';}
+  catch{const r=document.createRange();r.selectNodeContents(out);const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Selected, press copy';}
+  setTimeout(()=>b.textContent='Copy message',2500);};
+</script>
+</body></html>
