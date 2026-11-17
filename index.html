@@ -106,9 +106,11 @@ section:has(+ .gut > .rule){padding-bottom:clamp(48px,7vw,90px)}
 .arrows button{all:unset;cursor:pointer;font-family:var(--caps);font-size:30px;line-height:1;padding:4px 8px}
 .strip{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:4px}
 .strip::-webkit-scrollbar{display:none}
-.strip button{all:unset;cursor:zoom-in;flex:0 0 auto;scroll-snap-align:start;height:clamp(300px,42vw,520px)}
-.strip button:nth-child(even){align-self:end;height:clamp(240px,32vw,400px)}
-.strip img{height:100%;width:auto;object-fit:cover}
+.strip button{all:unset;cursor:zoom-in;flex:0 0 calc((100% - 30px)/4);scroll-snap-align:start;aspect-ratio:2/3;overflow:hidden;background:var(--line)}
+.strip img{width:100%;height:100%;object-fit:cover;object-position:50% 40%;transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.strip button:hover img{transform:scale(1.03)}
+@media (max-width:900px){.strip button{flex-basis:calc((100% - 20px)/3)}}
+@media (max-width:600px){.strip button{flex-basis:calc((100% - 10px)/1.6)}}
 .strip-wrap{display:flex;flex-direction:column}
 .center{text-align:center;margin-top:34px}
 
