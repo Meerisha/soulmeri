@@ -348,24 +348,24 @@ fit();if(document.fonts)document.fonts.ready.then(fit);addEventListener('resize'
   <div style="display:grid;gap:18px;min-width:0;align-content:center">
     <span class="label">Book a session</span>
     <h2 class="caps">Let's create <span class="s">something timeless</span></h2>
-    <p class="lead">Now booking weddings, engagements, families and pregnancy sessions. Fill this in and send it to me on Instagram. I reply personally.</p>
-    <form id="bookForm" novalidate>
+    <p class="lead">Now booking weddings and engagements. Tell me about your plans and I'll reply personally within 24 hours.</p>
+    <form id="bookForm" action="https://formspree.io/f/mwlooyrg" method="POST" novalidate>
+      <input type="hidden" name="_subject" value="New Soulmeri booking inquiry">
+      <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
       <label>Your names<input id="f-name" name="name" autocomplete="name" required></label>
       <label>Email<input id="f-email" name="email" type="email" autocomplete="email" required></label>
-      <label>Session type<select id="f-type" name="type">
+      <label>Session type<select id="f-type" name="session_type">
         <option>Wedding</option><option>Engagement</option><option>Couples</option><option>Family</option><option>Pregnancy</option><option>Business &amp; founders</option><option>Jewelry / brand</option><option>Portrait</option></select></label>
       <label>Date<input id="f-date" name="date" type="date"></label>
-      <label class="full">Location or venue<input id="f-loc" name="loc"></label>
-      <label class="full">Tell me about your plans<textarea id="f-msg" name="msg"></textarea></label>
+      <label class="full">Location or venue<input id="f-loc" name="location"></label>
+      <label class="full">Tell me about your plans<textarea id="f-msg" name="message"></textarea></label>
       <p class="err full" id="f-err" hidden>Please add your names and an email so I can reply.</p>
-      <div class="full ctas"><button class="btn solid" type="submit">Prepare my inquiry</button></div>
+      <div class="full ctas"><button class="btn solid" type="submit" id="sendBtn">Send inquiry</button></div>
     </form>
-    <div class="done" id="done" hidden>
-      <strong style="font-weight:500">Your inquiry is ready. Copy it and send it to me on Instagram.</strong>
-      <pre id="msgOut"></pre>
-      <div class="ctas"><button class="btn solid" id="copyBtn" type="button">Copy message</button>
-        <a class="btn" href="https://instagram.com/soulmeri" target="_blank" rel="noopener">Open Instagram @soulmeri</a>
-        <button class="link" id="editBtn" type="button">Edit</button></div>
+    <div class="done" id="done" hidden role="status">
+      <strong style="font-weight:500;font-size:20px;font-family:var(--caps)">Thank you!</strong>
+      <p style="margin:0">Your inquiry is on its way. I'll reply to your email within 24 hours.</p>
+      <div class="ctas"><a class="btn" href="https://instagram.com/soulmeri" target="_blank" rel="noopener">Follow on Instagram</a></div>
     </div>
   </div>
 </div></section>
@@ -474,20 +474,20 @@ document.querySelectorAll('[data-filter]').forEach(b=>b.onclick=()=>go(b.dataset
 window.addEventListener('hashchange',()=>route(true));
 render(); route(true);
 
-/* Booking form: builds a message to send by Instagram DM */
-const form=document.getElementById('bookForm'), done=document.getElementById('done'), out=document.getElementById('msgOut');
-form.addEventListener('submit',e=>{e.preventDefault();
+/* Booking form: sends to Formspree, which emails Meri and stores every inquiry */
+const form=document.getElementById('bookForm'), done=document.getElementById('done'), err=document.getElementById('f-err'), sendBtn=document.getElementById('sendBtn');
+form.addEventListener('submit',async e=>{e.preventDefault();
   const v=id=>document.getElementById(id).value.trim();
-  if(!v('f-name')||!/^\S+@\S+\.\S+$/.test(v('f-email'))){document.getElementById('f-err').hidden=false;return;}
-  document.getElementById('f-err').hidden=true;
-  const d=v('f-date')?new Date(v('f-date')+'T12:00').toLocaleDateString(undefined,{year:'numeric',month:'long',day:'numeric'}):'flexible';
-  out.textContent=`Hi Meri! I'd love to book a ${v('f-type').toLowerCase()} session.\n\nNames: ${v('f-name')}\nEmail: ${v('f-email')}\nDate: ${d}\nLocation: ${v('f-loc')||'not decided yet'}\n\n${v('f-msg')}`.trim();
-  form.hidden=true;done.hidden=false;});
-document.getElementById('editBtn').onclick=()=>{done.hidden=true;form.hidden=false;};
-document.getElementById('copyBtn').onclick=async e=>{const b=e.currentTarget;
-  try{await navigator.clipboard.writeText(out.textContent);b.textContent='Copied';}
-  catch{const r=document.createRange();r.selectNodeContents(out);const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Selected, press copy';}
-  setTimeout(()=>b.textContent='Copy message',2500);};
+  if(!v('f-name')||!/^\S+@\S+\.\S+$/.test(v('f-email'))){err.textContent='Please add your names and an email so I can reply.';err.hidden=false;return;}
+  err.hidden=true;sendBtn.disabled=true;sendBtn.textContent='Sending…';
+  try{
+    const r=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{Accept:'application/json'}});
+    if(!r.ok)throw new Error();
+    form.hidden=true;done.hidden=false;form.reset();
+  }catch{
+    err.textContent='Sorry, that didn\'t send. Please try again, or message me on Instagram @soulmeri.';err.hidden=false;
+  }finally{sendBtn.disabled=false;sendBtn.textContent='Send inquiry';}
+});
 </script>
 
 </body></html>
